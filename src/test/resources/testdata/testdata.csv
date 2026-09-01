@@ -1,0 +1,6 @@
+test_scenario,username,password,expected_result
+valid_login,testuser,password123,success
+invalid_login,invaliduser,wrongpassword,failure
+empty_username,,password123,failure
+empty_password,testuser,,failure
+empty_credentials,,,failure
