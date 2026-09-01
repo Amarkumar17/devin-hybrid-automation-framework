@@ -3,7 +3,6 @@ package com.framework.base;
 import com.framework.config.ConfigReader;
 import com.framework.constants.FrameworkConstants;
 import com.framework.utils.Log;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -39,7 +38,6 @@ public final class DriverFactory {
         try {
             switch (browser) {
                 case FrameworkConstants.CHROME:
-                    WebDriverManager.chromedriver().setup();
                     ChromeOptions chromeOptions = new ChromeOptions();
                     if (headless) {
                         chromeOptions.addArguments("--headless=new");
@@ -52,7 +50,6 @@ public final class DriverFactory {
                     break;
 
                 case FrameworkConstants.FIREFOX:
-                    WebDriverManager.firefoxdriver().setup();
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
                     if (headless) {
                         firefoxOptions.addArguments("-headless");
@@ -63,7 +60,6 @@ public final class DriverFactory {
                     break;
 
                 case FrameworkConstants.EDGE:
-                    WebDriverManager.edgedriver().setup();
                     EdgeOptions edgeOptions = new EdgeOptions();
                     if (headless) {
                         edgeOptions.addArguments("--headless=new");
