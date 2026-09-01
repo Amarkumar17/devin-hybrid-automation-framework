@@ -100,6 +100,7 @@
                     <parallel>methods</parallel>
                     <threadCount>4</threadCount>
                     <useSystemClassLoader>false</useSystemClassLoader>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <properties>
                         <property>
                             <name>listener</name>

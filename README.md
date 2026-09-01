@@ -164,6 +164,69 @@ The framework supports parallel execution at method level:
 5. Leverage the retry mechanism for flaky tests
 6. Review logs in `target/logs/` for debugging
 
+## GitHub Actions CI/CD
+
+This project uses GitHub Actions for automated continuous integration testing.
+
+### Workflow Triggers
+
+The test workflow automatically runs on:
+- Push to the `main` branch
+
+### How to View Test Results
+
+1. Navigate to the **Actions** tab in your GitHub repository
+2. Select the workflow run you want to review
+3. View the **Test Results** section in the workflow summary for a detailed breakdown
+4. Download artifacts for detailed reports and failure debugging
+
+### Artifacts
+
+Each workflow run generates the following artifacts:
+
+**Always Uploaded:**
+- `surefire-reports-{browser}` - Maven Surefire XML test reports
+- `testng-html-reports-{browser}` - TestNG HTML reports with detailed test information
+
+**Uploaded on Failure Only:**
+- `screenshots-{browser}` - Screenshots captured during test failures
+- `logs-{browser}` - Application logs for debugging failures
+
+### Local Testing Before Push
+
+Before pushing to the main branch, run tests locally to catch issues early:
+
+```bash
+# Run all tests with headless mode
+mvn test -Dheadless=true
+
+# Run with specific browser
+mvn test -Dbrowser=chrome -Dheadless=true
+
+# Run with reduced thread count (same as CI)
+mvn test -DthreadCount=2 -Dheadless=true
+```
+
+### Troubleshooting Common CI Issues
+
+**Issue: Headless mode errors**
+- Ensure `-Dheadless=true` is passed to Maven
+- Check that browser versions are compatible with Selenium 4.23.0
+
+**Issue: Flaky tests in CI**
+- CI runs with 2 parallel threads to avoid resource contention
+- Consider reducing thread count to 1 if tests are unstable
+- Review screenshots and logs from failed artifacts
+
+**Issue: Maven cache not working**
+- Cache is invalidated when `pom.xml` changes
+- First run after dependency changes will be slower
+- Subsequent runs should be significantly faster
+
+**Issue: Browser compatibility**
+- GitHub Actions uses latest Chrome and Firefox on Ubuntu
+- If browser updates cause issues, update Selenium version in `pom.xml`
+
 ## License
 
 This project is created for educational and demonstration purposes.
