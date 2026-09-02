@@ -34,7 +34,7 @@ jobs:
           cache: 'maven' # Built-in caching replaces actions/cache
 
       - name: Run tests
-        run: mvn test -Dheadless=true -Dbrowser=${{ matrix.browser }} -DthreadCount=2 -DtestFailureIgnore=true
+        run: mvn test -Dhead=false -Dbrowser=${{ matrix.browser }} -DthreadCount=2 -DtestFailureIgnore=true
 
       - name: Publish test results
         if: always()

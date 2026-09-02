@@ -32,7 +32,16 @@ public final class DriverFactory {
     public static void initDriver() {
         ConfigReader config = ConfigReader.getInstance();
         String browser = config.getBrowser().toLowerCase();
-        boolean headless = config.isHeadless();
+        
+        // Check Maven parameter first: -Dhead=false triggers headless mode
+        String headParam = System.getProperty("head");
+        boolean headless;
+        if (headParam != null && headParam.equalsIgnoreCase("false")) {
+            headless = true;
+        } else {
+            headless = config.isHeadless();
+        }
+        
         String windowSize = config.getWindowSize();
 
         try {
